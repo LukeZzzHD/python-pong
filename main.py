@@ -7,7 +7,7 @@ pygame.init()
 # Constants
 WIDTH, HEIGHT = 600, 400
 BALL_SPEED_X = 6
-BALL_SPEED_Y = 3
+INITIAL_BALL_SPEED_Y = 3  # Initial vertical speed
 PADDLE_SPEED = 7
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -29,6 +29,8 @@ def start_game():
     ball_rect.center = (WIDTH // 2, HEIGHT // 2)
     paddle1_rect.centery = HEIGHT // 2
     paddle2_rect.centery = HEIGHT // 2
+    global BALL_SPEED_Y  # Use global keyword to modify the global variable
+    BALL_SPEED_Y = INITIAL_BALL_SPEED_Y  # Reset vertical ball speed
     return 0, 0
 
 # Create paddles and ball
@@ -105,21 +107,19 @@ while True:
         if ball_rect.top <= 0 or ball_rect.bottom >= HEIGHT:
             BALL_SPEED_Y = -BALL_SPEED_Y
 
-        # Scoring
-        if ball_rect.right >= WIDTH:
-            score1 += 1
-            if score1 >= 5:
+        # Scoring and resetting vertical trajectory
+        if ball_rect.right >= WIDTH or ball_rect.left <= 0:
+            if ball_rect.right >= WIDTH:
+                score1 += 1
+            else:
+                score2 += 1
+
+            if score1 >= 5 or score2 >= 5:
                 score1, score2 = start_game()
                 game_active = False
             else:
-                ball_rect.center = (WIDTH // 2, HEIGHT // 2)
-        elif ball_rect.left <= 0:
-            score2 += 1
-            if score2 >= 5:
-                score1, score2 = start_game()
+                start_game()  # Reset vertical trajectory
                 game_active = False
-            else:
-                ball_rect.center = (WIDTH // 2, HEIGHT // 2)
 
     # Draw everything
     screen.fill(BLACK)
