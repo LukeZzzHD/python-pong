@@ -1,27 +1,21 @@
 import pygame
 import sys
+from settings import *
+from events import *
 
 # Initialize Pygame
 pygame.init()
 
-# Constants
-WIDTH, HEIGHT = 600, 400
-BALL_SPEED_X = 6
-INITIAL_BALL_SPEED_Y = 3  # Initial vertical speed
-PADDLE_SPEED = 7
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-
 # Initialize the screen
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Pong")
+pygame.display.set_caption(GAME_TITLE)
 
 # Font setup
 font = pygame.font.Font(None, 36)
 
 # Function to display text on the screen
 def draw_text(text, x, y):
-    text_surface = font.render(text, True, WHITE)
+    text_surface = font.render(text, True, TEXT_COLOR)
     screen.blit(text_surface, (x, y))
 
 # Function to start the game
@@ -51,28 +45,28 @@ game_active = False
 
 while True:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if user_closed_window(event):
             pygame.quit()
             sys.exit()
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_w:
+        elif key_is_pressed(event):
+            if key_is_W(event):
                 paddle1_move_up = True
-            elif event.key == pygame.K_s:
+            elif key_is_S(event):
                 paddle1_move_down = True
-            elif event.key == pygame.K_UP:
+            elif key_is_ArrowUP(event):
                 paddle2_move_up = True
-            elif event.key == pygame.K_DOWN:
+            elif key_is_ArrowDown(event):
                 paddle2_move_down = True
-            elif event.key == pygame.K_SPACE and not game_active:
+            elif key_is_Space(event) and not game_active:
                 game_active = True
-        elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_w:
+        elif key_is_released(event):
+            if key_is_W(event):
                 paddle1_move_up = False
-            elif event.key == pygame.K_s:
+            elif key_is_S(event):
                 paddle1_move_down = False
-            elif event.key == pygame.K_UP:
+            elif key_is_ArrowUP(event):
                 paddle2_move_up = False
-            elif event.key == pygame.K_DOWN:
+            elif key_is_ArrowDown(event):
                 paddle2_move_down = False
 
     # Move paddles if movement keys are held
@@ -122,10 +116,10 @@ while True:
                 game_active = False
 
     # Draw everything
-    screen.fill(BLACK)
-    pygame.draw.rect(screen, WHITE, paddle1_rect)
-    pygame.draw.rect(screen, WHITE, paddle2_rect)
-    pygame.draw.ellipse(screen, WHITE, ball_rect)
+    screen.fill(BACKGROUND_COLOR)
+    pygame.draw.rect(screen, PADDLE_1_COLOR, paddle1_rect)
+    pygame.draw.rect(screen, PADDLE_2_COLOR, paddle2_rect)
+    pygame.draw.ellipse(screen, BALL_COLOR, ball_rect)
 
     if not game_active:
         draw_text("Press SPACE to start", WIDTH // 4, HEIGHT // 2)

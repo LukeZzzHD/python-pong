@@ -1,0 +1,12 @@
+WIDTH = 600                   # Screen width in pixels
+HEIGHT = 400                  # Screen height in pixels
+BALL_SPEED_X = 6              # Ball movement speed
+INITIAL_BALL_SPEED_Y = 3      # Initial vertical ball movement speed
+PADDLE_SPEED = 7              # Paddle movement speed
+BALL_COLOR = (255, 255, 255)  # Ball color in RGB
+BACKGROUND_COLOR = (0, 0, 0)  # Background color in RGB
+PADDLE_1_COLOR = (255, 0, 0)  # Paddle 1 color in RGB
+PADDLE_2_COLOR = (0, 0, 255)  # Paddle 2 color in RGB
+TEXT_COLOR = (255, 255, 255)  # Text color in RGB
+GAME_TITLE = "Pong"           # Game title displayed on the window
+FPS = 60                      # Frames per second
