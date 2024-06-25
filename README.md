@@ -6,7 +6,7 @@ A simple pong game, written in python using pygame
 
 1. Install GIT - https://www.git-scm.com/downloads
 2. Open any terminal and navigate to your projects folder
-3. Run the command `git clone https://github.com/LukeZzzHD/python-pong.git`
+3. Run the command `git clone https://github.com/MattF12804/python-pong.git`
 
 ## How to run this code
 
